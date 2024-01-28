@@ -1,38 +1,121 @@
-.App {
-  text-align: center;
+html {
+  box-sizing: border-box;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
+body {
+  background-color: #121212;
+  font-family: Mercedes;
+  font-size: 18px;
+  color: #f70063;
+  margin: 0;
   min-height: 100vh;
+  position: relative;
+}
+
+body::after {
+  content: "";
+  display: block;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  border-bottom: 45px solid #f70063;
+}
+
+header {
+  background-color: #1f1f1f;
+  color: #f70063;
+  padding: 10px;
   display: flex;
-  flex-direction: column;
+  justify-content: flex-start;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  position: relative;
 }
 
-.App-link {
-  color: #61dafb;
+header::after {
+  content: "";
+  display: block;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  border-bottom: 2px solid #f70063;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.logo-container {
+  display: flex;
+  margin-left: 0.75vw;
+  margin-right: 5vw;
+  align-items: center;
+}
+
+.logo {
+  width: 95px;
+  margin-left: 10px;
+}
+
+h1 a {
+  font-size: 65px;
+  text-decoration: none;
+  color: #f70063;
+  margin: 0;
+  padding: 0;
+  margin-right: 7vw;
+  transition: color 1s ease;
+
+}
+
+h1 a:hover{
+  color: #f3612a;
+
+}
+.page-nav {
+  list-style: none;
+  display: flex;
+  margin: 0;
+  padding: 0;
+}
+
+.page-nav li {
+  font-weight: bold;
+  padding: 0;
+  margin-right: 3vw;
+  font-size: 20px;
+}
+
+.page-nav li a{
+  transition: color ease 1s;
+}
+
+.page-nav li a:hover{
+  color: #f3612a
+}
+
+.page-nav a {
+  text-decoration: none;
+  color: #f70063;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+main {
+  padding: 15px;
+}
+
+.custom-button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #f70063;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 18px;
+  cursor: pointer;
+  transition: background-color 1s ease;
+}
+
+.custom-button:hover {
+  background-color: #f3612a;
 }
