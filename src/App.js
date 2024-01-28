@@ -66,7 +66,6 @@ async function RandomGetter() {
 
 
 const Button = (props) => {
-
   const handleClick = async () => {
     try {
       const jokeData = await JokeGetter();
@@ -75,6 +74,8 @@ const Button = (props) => {
       // Pass data back to parent 
       props.setJokeData(jokeData);
 
+      // Pass the new joke data to handleNewJoke
+      props.handleNewJoke(jokeData);
     } catch (error) {
       console.error('Error in Button handleClick:', error);
     }
@@ -119,24 +120,43 @@ function Header () {
 
 
 function App() {
-  const [jokeData, setJokeData] = React.useState(null);
+  const [jokeData, setJokeData] = React.useState(null); 
+  const [showRest, setShowRest] = React.useState(false);
+
+  React.useEffect(() => {
+    const timeout = setTimeout(() => {
+      setShowRest(true);
+    }, 3000);
+  
+    return () => clearTimeout(timeout);
+  
+  }, [jokeData]);
+
+  function handleNewJoke(newJokeData) {
+    setJokeData(newJokeData);
+    setShowRest(false); // reset
+  }
+
   return (
     <div className="App">
       <Header />
       <main>
-      <Button setJokeData={setJokeData} />
-        {/* Display the joke information */}
+        <Button setJokeData={setJokeData} handleNewJoke={handleNewJoke} />
         {jokeData && (
           <div>
-            <p>{`Lead Up: ${jokeData.lead_up}`}</p>
-            <p>{`Punchline: ${jokeData.punchline}`}</p>
-            <p>{`Average Vote: ${jokeData.average_vote}`}</p>
-            <p>{`${jokeData.three_star_votes} other users found this funny!`}</p>
+            <p>{jokeData.lead_up}</p>
+            {showRest && (
+              <>
+                <p>{jokeData.punchline}</p>
+                <p>Average rating: {jokeData.average_vote}</p>
+              </>
+            )}
           </div>
         )}
       </main>
     </div>
   );
 }
+
 
 export default App;
