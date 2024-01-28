@@ -26,21 +26,22 @@ async function JokeGetter() {
       const newJoke = await RandomGetter();
       const lead_up = newJoke.lead_up;
       const punchline = newJoke.punchline;
-      const average_vote = newJoke.average_vote;
       const array_of_votes = newJoke.votes;
 
       const one_star_votes = array_of_votes[0];
       const two_star_votes = array_of_votes[1];
       const three_star_votes = array_of_votes[2];
 
+      let average_vote = (one_star_votes + 2*two_star_votes + 3*three_star_votes) / (one_star_votes + two_star_votes + three_star_votes);
+
       return {
-          lead_up,
-          punchline,
-          average_vote,
-          one_star_votes,
-          two_star_votes,
-          three_star_votes,
-        };
+        lead_up,
+        punchline,
+        average_vote: average_vote.toFixed(1),
+        one_star_votes,
+        two_star_votes,
+        three_star_votes,
+      };
       
     } catch (error) {
       console.error('Error in JokeGetter:', error);
@@ -88,6 +89,8 @@ const Button = (props) => {
   );
 };
 
+
+
 // function Button1() {
 //   const [buttonText, setButtonText] = React.Contents("Click Me");
 
@@ -114,6 +117,7 @@ function Header () {
   );
 };
 
+
 function App() {
   const [jokeData, setJokeData] = React.useState(null);
   return (
@@ -127,9 +131,7 @@ function App() {
             <p>{`Lead Up: ${jokeData.lead_up}`}</p>
             <p>{`Punchline: ${jokeData.punchline}`}</p>
             <p>{`Average Vote: ${jokeData.average_vote}`}</p>
-            <p>{`One Star Votes: ${jokeData.one_star_votes}`}</p>
-            <p>{`Two Star Votes: ${jokeData.two_star_votes}`}</p>
-            <p>{`Three Star Votes: ${jokeData.three_star_votes}`}</p>
+            <p>{`${jokeData.three_star_votes} other users found this funny!`}</p>
           </div>
         )}
       </main>
