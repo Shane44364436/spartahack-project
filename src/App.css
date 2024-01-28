@@ -16,6 +16,7 @@ body::after {
   content: "";
   display: block;
   position: absolute;
+  text-align: center;
   bottom: 0;
   left: 0;
   width: 100%;
@@ -29,6 +30,7 @@ header {
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  text-align: center;
   position: relative;
 }
 
@@ -36,6 +38,8 @@ header::after {
   content: "";
   display: block;
   position: absolute;
+  align-items: center;
+  text-align: center;
   bottom: 0;
   left: 0;
   width: 100%;
@@ -46,29 +50,33 @@ header::after {
   display: flex;
   margin-left: 0.75vw;
   margin-right: 5vw;
-  align-items: center;
 }
 
 .logo {
-  width: 95px;
+  width: 15%;
+  height: 15%;
   margin-left: 10px;
+  margin-right: 50px;
+  text-align: center;
 }
 
 h1 a {
-  font-size: 65px;
+  font-size: 82px;
   text-decoration: none;
   color: #f70063;
   margin: 0;
   padding: 0;
   margin-right: 7vw;
+  margin-left: 235px;
   transition: color 1s ease;
-
+  align-items: center;
+  text-align: center;
 }
 
 h1 a:hover{
   color: #f3612a;
-
 }
+
 .page-nav {
   list-style: none;
   display: flex;
@@ -102,6 +110,8 @@ a:hover {
 
 main {
   padding: 15px;
+  align-items: center;
+  text-align: center;
 }
 
 .custom-button {
@@ -114,8 +124,34 @@ main {
   font-size: 18px;
   cursor: pointer;
   transition: background-color 1s ease;
+  text-align: center;
 }
 
 .custom-button:hover {
+  background-color: #f3612a;
+}
+
+.rating-container {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.rating-buttons {
+  margin-top: 10px;
+}
+
+.rating-button {
+  background-color: #f70063;
+  color: #f70063;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-size: 24px;
+  margin: 0 5px;
+  cursor: pointer;
+}
+
+.rating-button:hover {
   background-color: #f3612a;
 }

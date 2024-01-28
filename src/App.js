@@ -1,5 +1,6 @@
 import React from 'react';
-// import Header from './components/header';
+import logoImage from './spartalaugh_logo.png';
+//import Header from './components/header';
 // import Button1 from './components/button';
 import './App.css';
 import firebase from 'firebase/compat/app';
@@ -26,22 +27,23 @@ async function JokeGetter() {
       const newJoke = await RandomGetter();
       const lead_up = newJoke.lead_up;
       const punchline = newJoke.punchline;
+      //const average_vote = newJoke.average_vote;
       const array_of_votes = newJoke.votes;
 
       const one_star_votes = array_of_votes[0];
       const two_star_votes = array_of_votes[1];
       const three_star_votes = array_of_votes[2];
 
-      let average_vote = (one_star_votes + 2*two_star_votes + 3*three_star_votes) / (one_star_votes + two_star_votes + three_star_votes);
+      let average_vote = (one_star_votes + 2*two_star_votes + 3*three_star_votes)/(one_star_votes+two_star_votes+three_star_votes);
 
       return {
-        lead_up,
-        punchline,
-        average_vote: average_vote.toFixed(1),
-        one_star_votes,
-        two_star_votes,
-        three_star_votes,
-      };
+          lead_up,
+          punchline,
+          average_vote: average_vote.toFixed(1),
+          one_star_votes,
+          two_star_votes,
+          three_star_votes,
+        };
       
     } catch (error) {
       console.error('Error in JokeGetter:', error);
@@ -62,8 +64,6 @@ async function RandomGetter() {
     console.error('Error fetching joke:', error);
   }
 };
-
-
 
 const Button = (props) => {
   const handleClick = async () => {
@@ -89,8 +89,28 @@ const Button = (props) => {
     </div>
   );
 };
+ 
+const Rating = (props) => {
+  const [clicked, setClicked] = Contents(false);
 
+  async function handleClick() {
+    try {
+      const jokeData = await JokeGetter();
+      console.log('Joke Data:', jokeData);
+      props.setJokeData(jokeData);
+      setClicked(true); // Set clicked to true when the button is clicked
+    } catch (error) {
+      console.error('Error in Rating handleClick:', error);
+    }
+  }
 
+  return (
+    <div className="rating-container">
+      <a className="rating-button" onClick={handleClick}>*</a>
+      {clicked && <p>Thank you for rating!</p>} {/* Display the message if clicked is true */}
+    </div>
+  );
+}
 
 // function Button1() {
 //   const [buttonText, setButtonText] = React.Contents("Click Me");
@@ -111,6 +131,7 @@ function Header () {
   return (
     <header className="header-container">
       <div className="logo-container">
+      <img src={logoImage} alt="SpartaLaugh Logo" className="logo"></img>
         <h1><a href="index.html">SpartaLaugh</a></h1>
         <ul className="page-nav"></ul>
       </div>
@@ -141,22 +162,31 @@ function App() {
     <div className="App">
       <Header />
       <main>
-        <Button setJokeData={setJokeData} handleNewJoke={handleNewJoke} />
+      <Button setJokeData={setJokeData} handleNewJoke={handleNewJoke} />
         {jokeData && (
           <div>
             <p>{jokeData.lead_up}</p>
             {showRest && (
               <>
                 <p>{jokeData.punchline}</p>
-                <p>Average rating: {jokeData.average_vote}</p>
+
               </>
             )}
+            <div className="rating-container">
+            <div className="rating-buttons">
+            <button class="rating-button" onclick="rateJoke(1)">*</button>
+            <button class="rating-button" onclick="rateJoke(2)">*</button>
+            <button class="rating-button" onclick="rateJoke(3)">*</button>
+            <p>Rate the joke!</p>
+            <p>{`Average Vote: ${jokeData.average_vote}`}</p>
+            <p>{`${jokeData.three_star_votes} users liked this!`}</p>
+          </div>
+          </div>
           </div>
         )}
       </main>
     </div>
   );
 }
-
 
 export default App;
